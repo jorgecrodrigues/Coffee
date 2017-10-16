@@ -1,5 +1,13 @@
-<!doctype html>
+<?php
+require_once 'Filesystem/Filesystem.php';
 
+$fs = new Filesystem();
+
+var_dump([
+    $fs->copy('m/file1', 'mm/file2', true)
+]);
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -11,7 +19,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="public/bootstrap/css/bootstrap.css"/>
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="public/css/styles.css">
+    <!--<link rel="stylesheet" href="public/css/styles.css">-->
 
     <!-- Jquery -->
     <script src="public/jquery/jquery-3.2.1.min.js"></script>
@@ -21,7 +29,8 @@
 </head>
 
 <body>
-<div class="container">
+
+<!--<div class="container">
     The HTML5
 
     <h3>IMAGENS</h3>
@@ -63,7 +72,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <!-- scripts -->
 <script src="public/js/scripts.js"></script>
 </body>

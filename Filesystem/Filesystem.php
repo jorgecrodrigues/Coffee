@@ -9,6 +9,17 @@
 class Filesystem
 {
     /**
+     * Verifica se o diretório ou arquivo existe.
+     *
+     * @param string $path
+     * @return bool
+     */
+    private function exists(string $path)
+    {
+        return file_exists($path);
+    }
+
+    /**
      * Verifica se o caminho é um diretório.
      *
      * @param string $path
@@ -77,15 +88,47 @@ class Filesystem
     //
 
     /**
-     * Dado uma string contendo um caminho para um arquivo ou diretório, essa função irá retornar apenas a parte que corresponde ao nome do arquivo.
+     * Retorna o caminho até o diretório ou arquivo.
      *
      * @param string $path
-     * @param string $suffix
      * @return mixed
      */
-    public function basename(string $path, string $suffix = null)
+    public function dirname(string $path)
     {
-        return basename($path, $suffix);
+        return pathinfo($path, PATHINFO_DIRNAME);
+    }
+
+    /**
+     * Retorna o nome base do diretório ou arquivo.
+     *
+     * @param string $path
+     * @return mixed
+     */
+    public function basename(string $path)
+    {
+        return pathinfo($path, PATHINFO_BASENAME);
+    }
+
+    /**
+     * Retorna o nome do diretótio ou arquivo sem extensão
+     *
+     * @param string $path
+     * @return mixed
+     */
+    public function filename(string $path)
+    {
+        return pathinfo($path, PATHINFO_FILENAME);
+    }
+
+    /**
+     * Retorna a extensão do arquivo.
+     *
+     * @param string $path
+     * @return mixed
+     */
+    public function extension(string $path)
+    {
+        return pathinfo($path, PATHINFO_EXTENSION);
     }
 
     /**
@@ -127,14 +170,24 @@ class Filesystem
 
     /**
      * Faz uma cópia do arquivo para o caminho de destino.
+     * ATENÇÃO! Se não for possível escrever no diretório de destino, ou sobrescrever um arquivo
+     * existente, será gerado um erro do tipo E_WARNING.
      *
      * @param string $path
      * @param string $destination
      * @param bool $replace
      * @return bool
      */
-    public function copy(string $path, string $destination, bool $replace)
+    public function copy(string $path, string $destination, bool $replace = false)
     {
+        // Verifica se o caminho existe, se o destino existe.
+        if (!($this->exists($path) && $this->exists($this->dirname($destination)))) {
+            return false;
+        }
+        // Verifica se o diretório ou arquivo já existe no caminho de destino.
+        if (!$replace && $this->exists($this->dirname($destination) . '/' . $this->filename($path))) {
+            return false;
+        }
         // Aviso! Se o arquivo de destino já existir, ele será sobrescrito.
         return copy($path, $destination);
     }
