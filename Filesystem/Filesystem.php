@@ -75,9 +75,10 @@ class Filesystem
     }
 
     /**
-     * Verifica se o arquivo pode ser modificado.
+     * Verifica se o arquivo existe e pode ser modificado.
      *
-     * @param string $path
+     * ATENÇÃO! Em caso de falha um E_WARNING será emitido.
+     * @param  string $path
      * @return bool
      */
     protected function isWriteable(string $path)
@@ -169,9 +170,38 @@ class Filesystem
     }
 
     /**
+     * Escreve uma string para um arquivo. Se filename não existir, o arquivo é criado.
+     *
+     * ATENÇÃO! A função retorna a quantidade de bytes que foi escrita no arquivo ou FALSE em caso de falha.
+     *
+     * @param string $filename
+     * @param mixed $data
+     * @param bool $apped
+     * @param bool $text
+     * @return bool|int
+     */
+    public function put(string $filename, $data, bool $apped = false)
+    {
+        // Verifica se o diretório do arquivo existe e se pode ser modificado.
+        if (!$this->isWriteable($this->dirname($filename))) {
+            return false;
+        }
+
+        // Verifica se o arquivo já existe e se pode ser modificado.
+        if ($this->isFile($filename) && !$this->isWriteable($filename)) {
+            return false;
+        }
+
+        // Acrescenta os dados ao final do arquivo ao invés de sobrescrevê-lo.
+        if ($apped) {
+            return file_put_contents($filename, $data, FILE_APPEND);
+        }
+        return file_put_contents($filename, $data);
+    }
+
+    /**
      * Faz uma cópia do arquivo para o caminho de destino.
-     * ATENÇÃO! Se não for possível escrever no diretório de destino, ou sobrescrever um arquivo
-     * existente, será gerado um erro do tipo E_WARNING.
+     *
      *
      * @param string $path
      * @param string $destination
@@ -180,14 +210,17 @@ class Filesystem
      */
     public function copy(string $path, string $destination, bool $replace = false)
     {
-        // Verifica se o caminho existe, se o destino existe.
-        if (!($this->exists($path) && $this->exists($this->dirname($destination)))) {
+        // Verifica se o caminho do arquivo existe e se pode ser lido, e se o caminho de destino
+        // pode ser modificado.
+        if (!($this->isReadable($path) && $this->isWriteable($this->dirname($destination)))) {
             return false;
         }
-        // Verifica se o diretório ou arquivo já existe no caminho de destino.
-        if (!$replace && $this->exists($this->dirname($destination) . '/' . $this->filename($path))) {
+
+        // Verifica se o diretório ou arquivo já existe no destino.
+        if (!$replace && $this->exists($this->dirname($destination) . '/' . $this->filename($destination))) {
             return false;
         }
+
         // Aviso! Se o arquivo de destino já existir, ele será sobrescrito.
         return copy($path, $destination);
     }

@@ -4,7 +4,7 @@ require_once 'Filesystem/Filesystem.php';
 $fs = new Filesystem();
 
 var_dump([
-    $fs->copy('m/file1', 'mm/file2', true)
+    $fs->copy('w', 'ww'),
 ]);
 ?>
 <!DOCTYPE html>
