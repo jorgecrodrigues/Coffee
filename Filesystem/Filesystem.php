@@ -9,7 +9,7 @@
 class Filesystem
 {
     /**
-     * Diz se o caminho é um diretório.
+     * Verifica se o caminho é um diretório.
      *
      * @param string $path
      * @return bool
@@ -19,9 +19,8 @@ class Filesystem
         return is_dir($path);
     }
 
-
     /**
-     *  Informa se o arquivo é um arquivo comum.
+     *  Verifica se o caminho é um arquivo comum.
      *
      * @param string $path
      * @return bool
@@ -30,6 +29,52 @@ class Filesystem
     {
         return is_file($path);
     }
+
+    /**
+     * Verifica se o arquivo é um link simbólico.
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected function isLink(string $path)
+    {
+        return is_link($path);
+    }
+
+    /**
+     * Verifica se o arquivo existe e se ele pode ser lido
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected function isReadable(string $path)
+    {
+        return is_readable($path);
+    }
+
+    /**
+     * Verifica se o arquivo foi enviado por POST HTTP
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected function isUploadedFile(string $path)
+    {
+        return is_uploaded_file($path);
+    }
+
+    /**
+     * Verifica se o arquivo pode ser modificado.
+     *
+     * @param string $path
+     * @return bool
+     */
+    protected function isWriteable(string $path)
+    {
+        return is_writable($path);
+    }
+
+    //
 
     /**
      * Dado uma string contendo um caminho para um arquivo ou diretório, essa função irá retornar apenas a parte que corresponde ao nome do arquivo.
@@ -42,7 +87,6 @@ class Filesystem
     {
         return basename($path, $suffix);
     }
-
 
     /**
      * Tenta mudar as permissões do arquivo especificado do arquivo para o dado em modo.
