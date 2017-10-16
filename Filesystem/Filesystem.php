@@ -170,7 +170,22 @@ class Filesystem
     }
 
     /**
-     * Escreve uma string para um arquivo. Se filename não existir, o arquivo é criado.
+     * Lê todo o conteúdo de um arquivo para uma string.
+     *
+     * @param string $filename
+     * @return bool|string
+     */
+    public function get(string $filename)
+    {
+        // Verifica se o arquivo existe e se ele pode ser lido.
+        if (!$this->isReadable($filename)) {
+            return false;
+        }
+        return $this->isFile($filename) ? file_get_contents($filename) : false;
+    }
+
+    /**
+     * Escreve uma string para um arquivo. Se filename não existir então é criado.
      *
      * ATENÇÃO! A função retorna a quantidade de bytes que foi escrita no arquivo ou FALSE em caso de falha.
      *
