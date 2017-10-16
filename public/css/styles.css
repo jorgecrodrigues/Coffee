@@ -1,0 +1,21 @@
+body {
+    background-color: #0f0f0f;
+    color: white;
+}
+.album {
+
+}
+.album .view {
+    margin-bottom: 30px;
+    width: 100%;
+    height: auto;
+    border:2px solid #eeeeee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.album .view .image {
+    top:0;
+    left: 0;
+    border-radius: 5px;
+    position: relative;
+}

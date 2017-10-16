@@ -9,44 +9,44 @@
 class Connection extends PDO
 {
 
-    use CheckTheDrive;
+    use CheckTheDriver;
 
     /**
      * Driver para conexão PDO.
      *
      * @var string
      */
-    private $driver;
+    protected $driver;
     /**
      * Servidor para conexão PDO.
      *
      * @var string
      */
-    private $host;
+    protected $host;
     /**
      * Porta para a conexão PDO.
      *
      * @var int
      */
-    private $port;
+    protected $port;
     /**
      * Banco de dados para a conexão PDO.
      *
      * @var string
      */
-    private $database;
+    protected $database;
     /**
      * Usuário para a conexão PDO.
      *
      * @var string
      */
-    private $user;
+    protected $user;
     /**
      * A chave para a conexão PDO.
      *
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * Opções para a conexão PDO.
@@ -61,6 +61,117 @@ class Connection extends PDO
     public function __construct()
     {
         //parent::__construct($dsn, $username, $passwd, $options);
+    }
 
+    /**
+     * @return string
+     */
+    public function getDriver(): string
+    {
+        return $this->driver;
+    }
+
+    /**
+     * @param string $driver
+     */
+    public function setDriver(string $driver)
+    {
+        $this->driver = $driver;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost(): string
+    {
+        return $this->host;
+    }
+
+    /**
+     * @param string $host
+     */
+    public function setHost(string $host)
+    {
+        $this->host = $host;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPort(): int
+    {
+        return $this->port;
+    }
+
+    /**
+     * @param int $port
+     */
+    public function setPort(int $port)
+    {
+        $this->port = $port;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDatabase(): string
+    {
+        return $this->database;
+    }
+
+    /**
+     * @param string $database
+     */
+    public function setDatabase(string $database)
+    {
+        $this->database = $database;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUser(): string
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param string $user
+     */
+    public function setUser(string $user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
     }
 }

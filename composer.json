@@ -1,0 +1,12 @@
+{
+    "name": "debian/php",
+    "description": "Aplicação para gerenciar alguns recursos do php.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Jorge Lauro Campos Rodrigues",
+            "email": "jorgerodrigues9@outlook.com"
+        }
+    ],
+    "require": {}
+}

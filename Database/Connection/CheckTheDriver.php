@@ -6,7 +6,7 @@
  * Time: 08:02
  */
 
-trait CheckTheDrive
+trait CheckTheDriver
 {
     /**
      * Contém nomes dos drivers implementados pela interface PDO.
