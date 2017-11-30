@@ -8,5 +8,7 @@
             "email": "jorgerodrigues9@outlook.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php-di/php-di": "^5.4"
+    }
 }

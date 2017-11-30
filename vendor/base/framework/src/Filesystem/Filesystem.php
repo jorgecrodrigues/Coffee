@@ -6,6 +6,8 @@
  * Time: 09:35
  */
 
+namespace Base\Filesystem;
+
 class Filesystem
 {
     /**
@@ -86,8 +88,6 @@ class Filesystem
         return is_writable($path);
     }
 
-    //
-
     /**
      * Retorna o caminho até o diretório ou arquivo.
      *
@@ -145,10 +145,7 @@ class Filesystem
     }
 
     /**
-     * Tenta modificar o dono do arquivo para o usuario. Somente o superusuário pode modificar o dono de um arquivo.
-     * As funções afetadas são stat(), lstat(), file_exists(), is_writable(), is_readable(), is_executable(), is_file(),
-     * is_dir(), is_link(), filectime(), fileatime(), filemtime(), fileinode(), filegroup(), fileowner(), filesize(),
-     * filetype(), e fileperms().
+     * Tenta modificar o dono do arquivo para o usuário. Somente o superusuário pode modificar o dono de um arquivo.
      *
      * @param string $path
      * @param mixed $user
@@ -157,16 +154,6 @@ class Filesystem
     public function chown(string $path, mixed $user)
     {
         return chown($path, $user);
-    }
-
-    /**
-     * Limpa as informações em cache sobre arquivos.
-     *
-     * @return void
-     */
-    public function clearstatcache()
-    {
-        clearstatcache();
     }
 
     /**
@@ -238,5 +225,18 @@ class Filesystem
 
         // Aviso! Se o arquivo de destino já existir, ele será sobrescrito.
         return copy($path, $destination);
+    }
+
+    /**
+     * Limpa as informações em cache sobre arquivos.
+     * As funções afetadas são stat(), lstat(), file_exists(), is_writable(), is_readable(), is_executable(), is_file(),
+     * is_dir(), is_link(), filectime(), fileatime(), filemtime(), fileinode(), filegroup(), fileowner(), filesize(),
+     * filetype(), e fileperms().
+     *
+     * @return void
+     */
+    public function clearstatcache()
+    {
+        clearstatcache();
     }
 }
